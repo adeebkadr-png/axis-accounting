@@ -80,17 +80,22 @@ def main():
 
     try:
         import webview
-    except ImportError:
+        if sys.platform == "win32":
+            # النافذة تحتاج محرك Edge WebView2؛ بدونه يرجع pywebview إلى محرك Internet Explorer القديم
+            # الذي لا يشغّل الواجهة، فنفتح المتصفح بدلاً منه.
+            from webview.platforms import winforms
+            if winforms.renderer != "edgechromium":
+                raise RuntimeError(f"WebView2 غير متوفر (المحرك: {winforms.renderer})")
+        webview.settings["ALLOW_DOWNLOADS"] = True
+        webview.create_window("AXIS للمحاسبة", url, width=1300, height=860, min_size=(900, 600), text_select=True)
+        webview.start()   # يعود عند إغلاق النافذة فينتهي البرنامج
+        return 0
+    except Exception as e:  # أي عطل في النافذة المستقلة لا يمنع العمل: البرنامج يفتح في المتصفح
+        print(f"تعذر فتح النافذة المستقلة ({e}) — يُفتح البرنامج في المتصفح", file=sys.stderr)
         import webbrowser
         webbrowser.open(url)
-        print("لفتح نافذة مستقلة ثبّت pywebview:  pip install pywebview")
         while True:
             time.sleep(1)
-
-    webview.settings["ALLOW_DOWNLOADS"] = True
-    webview.create_window("AXIS للمحاسبة", url, width=1300, height=860, min_size=(900, 600), text_select=True)
-    webview.start()   # يعود عند إغلاق النافذة فينتهي البرنامج
-    return 0
 
 
 if __name__ == "__main__":
