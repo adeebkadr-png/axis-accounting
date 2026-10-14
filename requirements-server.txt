@@ -1,0 +1,10 @@
+# متطلبات التشغيل على سيرفر لينكس (بدون نافذة سطح المكتب)
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9
+anthropic>=1.7,<2
+pillow>=10
+arabic-reshaper>=3
+python-bidi>=0.6
+pyserial>=3.5
+cryptography>=42
