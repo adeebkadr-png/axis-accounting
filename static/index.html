@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>المحاسب الذكي</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%231f3a5f%22/%3E%3Cpath%20d%3D%22M8%2022V10h4l4%207%204-7h4v12%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo">م</div>
+      <div><b>المحاسب الذكي</b><small id="company-name">…</small></div>
+    </div>
+    <nav class="nav" id="nav">
+      <a data-page="dashboard"><i class="i i-dashboard"></i><span>لوحة التحكم</span></a>
+      <a data-page="assistant" class="ai"><i class="i i-chat"></i><span>المساعد الذكي</span></a>
+
+      <a data-page="pos"><i class="i i-cart"></i><span>نقطة البيع</span></a>
+      <a data-page="floor" data-mode="restaurant"><i class="i i-table"></i><span>الصالة والطلبات</span></a>
+      <a data-page="kitchen" data-mode="restaurant"><i class="i i-kitchen"></i><span>شاشة المطبخ</span></a>
+
+      <div class="group">الفواتير</div>
+      <a data-page="invoice" data-kind="sale"><i class="i i-receipt"></i><span>فاتورة مبيع</span></a>
+      <a data-page="invoice" data-kind="purchase"><i class="i i-inbox"></i><span>فاتورة شراء</span></a>
+      <a data-page="invoice" data-kind="sale_return"><i class="i i-undo"></i><span>مرتجع مبيع</span></a>
+      <a data-page="invoice" data-kind="purchase_return"><i class="i i-redo"></i><span>مرتجع شراء</span></a>
+      <a data-page="invoices"><i class="i i-archive"></i><span>سجل الفواتير</span></a>
+
+      <div class="group">الحسابات</div>
+      <a data-page="shifts"><i class="i i-clock"></i><span>ورديات الكاشير</span></a>
+      <a data-page="vouchers"><i class="i i-cash"></i><span>سندات القبض والدفع</span></a>
+      <a data-page="checks"><i class="i i-filecheck"></i><span>الشيكات والأوراق</span></a>
+      <a data-page="journal"><i class="i i-journal"></i><span>قيود اليومية</span></a>
+      <a data-page="accounts"><i class="i i-tree"></i><span>دليل الحسابات</span></a>
+
+      <div class="group">البيانات</div>
+      <a data-page="parties" data-kind="customer"><i class="i i-users"></i><span>العملاء</span></a>
+      <a data-page="parties" data-kind="supplier"><i class="i i-truck"></i><span>الموردون</span></a>
+      <a data-page="items"><i class="i i-box"></i><span>المواد والمخزون</span></a>
+      <a data-page="pricing"><i class="i i-tag"></i><span>الأسعار والعروض</span></a>
+      <a data-page="labels"><i class="i i-barcode"></i><span>ملصقات الباركود</span></a>
+      <a data-page="warehouses"><i class="i i-warehouse"></i><span>المستودعات والتحويل</span></a>
+      <a data-page="stocktake"><i class="i i-clipcheck"></i><span>الجرد الفعلي</span></a>
+      <a data-page="orders"><i class="i i-clipboard"></i><span>أوامر الشراء</span></a>
+      <a data-page="opening"><i class="i i-flag"></i><span>الأرصدة الافتتاحية</span></a>
+      <a data-page="assets"><i class="i i-building"></i><span>الأصول الثابتة</span></a>
+      <a data-page="hr"><i class="i i-briefcase"></i><span>الموظفون والرواتب</span></a>
+      <a data-page="centers"><i class="i i-target"></i><span>مراكز الكلفة</span></a>
+
+      <div class="group">التقارير</div>
+      <a data-page="reports"><i class="i i-chart"></i><span>التقارير المالية</span></a>
+
+      <div class="group">النظام</div>
+      <a data-page="closing"><i class="i i-lock"></i><span>الإقفال المالي</span></a>
+      <a data-page="audit"><i class="i i-search"></i><span>سجل التدقيق</span></a>
+      <a data-page="users"><i class="i i-shield"></i><span>المستخدمون والصلاحيات</span></a>
+      <a data-page="rsetup"><i class="i i-utensils"></i><span>إعداد المطعم</span></a>
+      <a data-page="settings"><i class="i i-gear"></i><span>الإعدادات</span></a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="btn ghost menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="i i-menu"></i></button>
+      <h1 id="page-title"></h1>
+      <a class="btn ghost" href="/static/guide.html" title="دليل الاستخدام"><i class="i i-help"></i></a>
+      <button class="btn ghost" id="user-btn" title="حسابي"></button>
+      <button class="btn ghost" id="theme-btn" title="تبديل المظهر"><i class="i i-theme"></i></button>
+    </header>
+    <main class="content" id="app"></main>
+  </div>
+</div>
+<div id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

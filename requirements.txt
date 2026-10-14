@@ -1,0 +1,10 @@
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9
+anthropic>=1.7,<2
+pywebview>=5          # اختياري: لتشغيل البرنامج في نافذة سطح مكتب مستقلة
+pillow>=10             # رسم الإيصالات العربية للطابعات الحرارية
+arabic-reshaper>=3
+python-bidi>=0.6
+pyserial>=3.5          # اختياري: قراءة الميزان المتصل
+cryptography>=42        # اختياري: شهادة HTTPS عند تشغيل run_https.bat

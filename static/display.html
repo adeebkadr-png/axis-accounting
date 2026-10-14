@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شاشة الزبون</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; font-family: "IBM Plex Sans Arabic", "Cairo", Tahoma, sans-serif; background: #0e1415; color: #e6edf0; height: 100vh; display: flex; flex-direction: column; }
+  header { padding: 18px 28px; font-size: 26px; font-weight: 800; background: #10231f; }
+  main { flex: 1; overflow: hidden; padding: 18px 28px; }
+  table { width: 100%; border-collapse: collapse; font-size: 24px; }
+  td { padding: 10px 6px; border-bottom: 1px solid #273337; }
+  td.n { text-align: left; direction: ltr; font-variant-numeric: tabular-nums; }
+  footer { padding: 22px 28px; background: #10231f; display: flex; justify-content: space-between; align-items: center; }
+  .total { font-size: 56px; font-weight: 800; color: #2dd4bf; direction: ltr; }
+  .center { display: grid; place-items: center; height: 100%; text-align: center; font-size: 34px; }
+  .muted { color: #93a3a8; font-size: 22px; }
+</style>
+</head>
+<body>
+<header id="co">أهلاً بكم</header>
+<main id="body"><div class="center">أهلاً وسهلاً </div></main>
+<footer><span style="font-size:28px">الإجمالي</span><span class="total" id="total">0</span></footer>
+<script>
+const f = n => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function render() {
+  let st; try { st = JSON.parse(localStorage.getItem('axis_display') || 'null'); } catch { st = null; }
+  if (!st) return;
+  document.getElementById('co').textContent = st.company || 'أهلاً بكم';
+  const body = document.getElementById('body');
+  if (st.thanks) {
+    body.innerHTML = `<div class="center"><div>شكراً لزيارتكم <div class="muted">المدفوع ${f(st.paid)} — الباقي ${f(st.change)}</div></div></div>`;
+    document.getElementById('total').textContent = f(st.change);
+    return;
+  }
+  body.innerHTML = st.lines && st.lines.length
+    ? '<table>' + st.lines.slice(-9).map(l => `<tr><td>${e(l.name)}</td><td class="n">${f(l.qty)} × ${f(l.price)}</td><td class="n"><b>${f(l.total)}</b></td></tr>`).join('') + '</table>'
+    : '<div class="center">أهلاً وسهلاً </div>';
+  document.getElementById('total').textContent = `${f(st.total)} ${st.symbol || ''}`;
+}
+window.addEventListener('storage', render);
+render();
+</script>
+</body>
+</html>
