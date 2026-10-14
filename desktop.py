@@ -27,6 +27,13 @@ def data_dir() -> Path:
 
 os.environ["ACCOUNTING_DATA_DIR"] = str(data_dir())
 data_dir().mkdir(parents=True, exist_ok=True)
+
+# النسخة المجمّعة بلا نافذة طرفية: sys.stdout و sys.stderr تكون None فتتعطل مكتبة uvicorn عند الكتابة.
+# نوجّههما إلى ملف داخل مجلد البيانات ليبقى أثر أي خطأ عند بدء التشغيل.
+if sys.stdout is None or sys.stderr is None:
+    _out = open(data_dir() / "desktop.log", "a", encoding="utf-8", buffering=1)
+    sys.stdout = sys.stdout or _out
+    sys.stderr = sys.stderr or _out
 sys.path.insert(0, str(BUNDLE / "backend"))
 
 import uvicorn  # noqa: E402  (بعد ضبط المسارات)
@@ -81,7 +88,7 @@ def main():
             time.sleep(1)
 
     webview.settings["ALLOW_DOWNLOADS"] = True
-    webview.create_window("المحاسب الذكي", url, width=1300, height=860, min_size=(900, 600), text_select=True)
+    webview.create_window("AXIS للمحاسبة", url, width=1300, height=860, min_size=(900, 600), text_select=True)
     webview.start()   # يعود عند إغلاق النافذة فينتهي البرنامج
     return 0
 
